@@ -1,31 +1,39 @@
 package com.skipthedishes.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
-	
-	private Long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long productId;
 	private Long storeId;
 	private String name;
 	private String description;
 	private Double price;
-	
+
 	public Product() {
 	}
 
-	public Product(Long id, Long storeId, String name, String description, Double price) {
+	public Product(Long productId, Long storeId, String name, String description, Double price) {
 		super();
-		this.id = id;
+		this.productId = productId;
 		this.storeId = storeId;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public Long getStoreId() {
@@ -64,7 +72,10 @@ public class Product {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
 		result = prime * result + ((storeId == null) ? 0 : storeId.hashCode());
 		return result;
 	}
@@ -78,10 +89,25 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (description == null) {
+			if (other.description != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!description.equals(other.description))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (productId == null) {
+			if (other.productId != null)
+				return false;
+		} else if (!productId.equals(other.productId))
 			return false;
 		if (storeId == null) {
 			if (other.storeId != null)
@@ -93,10 +119,8 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", storeId=" + storeId + ", name=" + name + ", description=" + description
-				+ ", price=" + price + "]";
+		return "Product [productId=" + productId + ", storeId=" + storeId + ", name=" + name + ", description="
+				+ description + ", price=" + price + "]";
 	}
-	
-	
 
 }

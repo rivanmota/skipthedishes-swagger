@@ -1,19 +1,27 @@
 package com.skipthedishes.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Cousine {
-	
-	private Long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long cousineId;
 	private String name;
 
 	public Cousine() {
 	}
 
-	public Long getId() {
-		return id;
+	public Long getCousineId() {
+		return cousineId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCousineId(Long cousineId) {
+		this.cousineId = cousineId;
 	}
 
 	public String getName() {
@@ -28,7 +36,7 @@ public class Cousine {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((cousineId == null) ? 0 : cousineId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -42,10 +50,10 @@ public class Cousine {
 		if (getClass() != obj.getClass())
 			return false;
 		Cousine other = (Cousine) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (cousineId == null) {
+			if (other.cousineId != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!cousineId.equals(other.cousineId))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -57,7 +65,7 @@ public class Cousine {
 
 	@Override
 	public String toString() {
-		return "Cousine [id=" + id + ", name=" + name + "]";
+		return "Cousine [cousineId=" + cousineId + ", name=" + name + "]";
 	}
-	
+
 }

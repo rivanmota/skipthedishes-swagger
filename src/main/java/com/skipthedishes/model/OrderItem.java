@@ -1,28 +1,26 @@
 package com.skipthedishes.model;
 
-public class OrderItem {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+@Entity
+public class OrderItem {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private Long orderId;
-	private Long productId;
+	@OneToOne
+	private Order order;
+	@OneToOne
 	private Product product;
 	private Double price;
 	private Long quantity;
-	private Double total;
+	private transient Double total;
 
 	public OrderItem() {
-	}
-
-	public OrderItem(Long id, Long orderId, Long productId, Product product, Double price, Long quantity,
-			Double total) {
-		super();
-		this.id = id;
-		this.orderId = orderId;
-		this.productId = productId;
-		this.product = product;
-		this.price = price;
-		this.quantity = quantity;
-		this.total = total;
 	}
 
 	public Long getId() {
@@ -31,22 +29,6 @@ public class OrderItem {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
-
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
 	}
 
 	public Product getProduct() {
@@ -81,12 +63,23 @@ public class OrderItem {
 		this.total = total;
 	}
 
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((product == null) ? 0 : product.hashCode());
+		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
 		return result;
 	}
 
@@ -104,18 +97,35 @@ public class OrderItem {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (orderId == null) {
-			if (other.orderId != null)
+		if (order == null) {
+			if (other.order != null)
 				return false;
-		} else if (!orderId.equals(other.orderId))
+		} else if (!order.equals(other.order))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (product == null) {
+			if (other.product != null)
+				return false;
+		} else if (!product.equals(other.product))
+			return false;
+		if (quantity == null) {
+			if (other.quantity != null)
+				return false;
+		} else if (!quantity.equals(other.quantity))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", product=" + product
-				+ ", price=" + price + ", quantity=" + quantity + ", total=" + total + "]";
+		return "OrderItem [id=" + id + ", order=" + order + ", product=" + product + ", price=" + price + ", quantity="
+				+ quantity + "]";
 	}
+
+	
 
 }

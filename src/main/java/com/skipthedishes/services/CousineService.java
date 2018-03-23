@@ -9,7 +9,7 @@ public interface CousineService {
 
 	Cousine getById(Long id);
 
-	Cousine getBySearchText(String SearchText);
+	Iterable<Cousine> getBySearchText(String SearchText);
 
 	Iterable<Store> getStoresByCousineId(Long storeId);
 

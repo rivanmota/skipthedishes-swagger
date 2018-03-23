@@ -28,25 +28,25 @@ public class ProductRepositoryTest {
     public void testSaveProduct(){
         
         Product product = new Product();
-        product.setId(1L);
+        product.setProductId(1L);
         product.setDescription("Test");
         product.setPrice(1.99);
         
-        assertNull(product.getId());
+        assertNull(product.getProductId());
         productRepository.save(product);
-        assertNotNull(product.getId()); 
+        assertNotNull(product.getProductId()); 
         
-        Product objectFromDB = productRepository.findOne(product.getId());
+        Product objectFromDB = productRepository.findOne(product.getProductId());
         assertNotNull(objectFromDB);
         
         //should equal
-        assertEquals(product.getId(), objectFromDB.getId());
+        assertEquals(product.getProductId(), objectFromDB.getProductId());
         assertEquals(product.getDescription(), objectFromDB.getDescription());
         
         objectFromDB.setDescription("Changed Description");
         productRepository.save(objectFromDB);
         
-        Product fetchedUpdatedProduct = productRepository.findOne(objectFromDB.getId());
+        Product fetchedUpdatedProduct = productRepository.findOne(objectFromDB.getProductId());
         assertEquals(objectFromDB.getDescription(), fetchedUpdatedProduct.getDescription());
         
     }

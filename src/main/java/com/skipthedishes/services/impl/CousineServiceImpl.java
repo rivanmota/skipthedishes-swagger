@@ -24,7 +24,7 @@ public class CousineServiceImpl implements CousineService {
     }
 
     @Override
-    public Cousine getBySearchText(String searchText) {
+    public Iterable<Cousine> getBySearchText(String searchText) {
         return cousineRepository.findByName(searchText);
     }
     

@@ -41,9 +41,9 @@ public class CousineController {
 
 	@ApiOperation(value = "Find Cousine by searchText", response = Cousine.class)
 	@RequestMapping(value = "/search/{searchText}", method = RequestMethod.GET, produces = "application/json")
-	public Cousine searchText(@PathVariable String searchText, Model model) {
-		Cousine Cousine = cousineService.getBySearchText(searchText);
-		return Cousine;
+	public Iterable<Cousine> searchText(@PathVariable String searchText, Model model) {
+		Iterable<Cousine> cousines = cousineService.getBySearchText(searchText);
+		return cousines;
 	}
 	
 	@ApiOperation(value = "List of stores by cousine id", response = Iterable.class)

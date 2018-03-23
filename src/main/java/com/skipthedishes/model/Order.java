@@ -3,14 +3,24 @@ package com.skipthedishes.model;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Order {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private Calendar date;
 	private Long customerId;
 	private String deliveryAddress;
 	private String contact;
 	private Long storeId;
+	@OneToMany
 	private List<OrderItem> orderItems;
 	private Double total;
 	private String status;

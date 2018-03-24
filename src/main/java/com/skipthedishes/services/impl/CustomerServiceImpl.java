@@ -1,4 +1,4 @@
-package com.skipthedishes.security;
+package com.skipthedishes.services.impl;
 
 import static java.util.Collections.emptyList;
 
@@ -14,7 +14,7 @@ import com.skipthedishes.model.UserAuth;
 import com.skipthedishes.repositories.CustomerRepository;
 
 @Service
-public class UserAuthService implements UserDetailsService {
+public class CustomerServiceImpl implements UserDetailsService {
 	
 	@Autowired
 	private CustomerRepository customerRepository;

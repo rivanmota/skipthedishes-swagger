@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
+@Table(name="order_customer")
 public class Order {
 
 	@Id
@@ -22,6 +25,7 @@ public class Order {
 	private Long storeId;
 	@OneToMany
 	private List<OrderItem> orderItems;
+	@Transient
 	private Double total;
 	private String status;
 	private Calendar lastUpdate;

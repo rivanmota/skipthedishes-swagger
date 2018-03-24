@@ -20,17 +20,19 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.skipthedishes.controllers"))
-                .paths(regex("/product.*"))
+                .paths(regex("/api/v1.*"))
                 .build()
                 .apiInfo(metaData());
     }
+    
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo(
-                "Test",
-                "Spring Boot REST API",
-                "Test",
-                "Test",
-                new Contact("Test Test", "http://Test", "Test@test"),
+                "vanhack-saopaulo-fair-api",
+                "Rivan Mota",
+                "REACT and MOBILE Developers: use this API to access the end-points during your Challenge.\n" + 
+                "JAVA Developers: this API must be implemented at least as is.",
+                "Vanhack - Website",
+                new Contact("Rivan Mota", "http://rivanmota.com", "rivanluiz@gmail.com"),
                "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0");
         return apiInfo;

@@ -1,55 +1,57 @@
 package com.skipthedishes.security;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.skipthedishes.services.impl.CustomerServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-	private UserDetailsService userDetailsService;
-	private PasswordEncoder noPasswordEnconder;
+	
+	private CustomerServiceImpl customerServiceImpl;
 
-    @SuppressWarnings("deprecation")
-	public WebSecurity(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-        this.noPasswordEnconder = NoOpPasswordEncoder.getInstance();
-    }
+	public WebSecurity(CustomerServiceImpl customerServiceImpl) {
+		this.customerServiceImpl = customerServiceImpl;
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
-        		.antMatchers(HttpMethod.POST, "/login/**").permitAll()
-        		.antMatchers(HttpMethod.POST, "/customer/**").permitAll()
-        		.antMatchers(HttpMethod.GET, "/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                // this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		JWTAuthenticationFilter filter = new JWTAuthenticationFilter(authenticationManager());
+		filter.setFilterProcessesUrl("/api/v1/Customer/auth");
+		
+		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+				.and()
+				.csrf().disable()
+				.authorizeRequests()
+				.antMatchers(HttpMethod.GET, SecurityConstants.SIGN_UP_URL).permitAll()
+				.antMatchers(HttpMethod.GET, "api/v1/Product/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.addFilter(filter)
+				.addFilter(new JWTAuthorizationFilter(authenticationManager(), customerServiceImpl));
+	}
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(noPasswordEnconder);
-    }
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+			.withUser("user").password("skip").roles("USER")
+			.and()
+			.withUser("admin").password("skip").roles("USER", "ADMIN");
+	}
 
-  @Bean
-  CorsConfigurationSource corsConfigurationSource() {
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-    return source;
-  }
+	// @Bean
+	// CorsConfigurationSource corsConfigurationSource() {
+	// final UrlBasedCorsConfigurationSource source = new
+	// UrlBasedCorsConfigurationSource();
+	// source.registerCorsConfiguration("/**", new
+	// CorsConfiguration().applyPermitDefaultValues());
+	// return source;
+	// }
 }

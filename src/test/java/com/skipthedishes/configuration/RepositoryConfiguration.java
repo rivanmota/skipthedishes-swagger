@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@EntityScan(basePackages = {"com.skipthedishes.domain"})
+@EntityScan(basePackages = {"com.skipthedishes.model"})
 @EnableJpaRepositories(basePackages = {"com.skipthedishes.repositories"})
 @EnableTransactionManagement
 public class RepositoryConfiguration {

@@ -1,5 +1,7 @@
 package com.skipthedishes.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getBySearchText(String searchText) {
-        return productRepository.findByName(searchText);
+    public List<Product> getByNameIgnoreCaseContaining(String searchText) {
+        return productRepository.findByNameIgnoreCaseContaining(searchText);
     }
     
     @Override

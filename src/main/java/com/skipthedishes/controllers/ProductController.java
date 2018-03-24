@@ -1,5 +1,7 @@
 package com.skipthedishes.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skipthedishes.model.Product;
 import com.skipthedishes.services.ProductService;
+import com.skipthedishes.services.impl.ProductServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,8 +26,8 @@ public class ProductController {
 	private ProductService productService;
 
 	@Autowired
-	public void setProductService(ProductService productService) {
-		this.productService = productService;
+	public void setProductService(ProductServiceImpl productServiceImpl) {
+		this.productService = productServiceImpl;
 	}
 
 	@ApiOperation(value = "List of products", response = Iterable.class)
@@ -40,9 +43,9 @@ public class ProductController {
 
 	@ApiOperation(value = "Find product by searchText", response = Product.class)
 	@RequestMapping(value = "/search/{searchText}", method = RequestMethod.GET, produces = "application/json")
-	public Product searchText(@PathVariable String searchText, Model model) {
-		Product product = productService.getBySearchText(searchText);
-		return product;
+	public List<Product> searchText(@PathVariable String searchText, Model model) {
+		List<Product> products = productService.getByNameIgnoreCaseContaining(searchText);
+		return products;
 	}
 	
 	@ApiOperation(value = "Find product by id", response = Product.class)

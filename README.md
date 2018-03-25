@@ -1,5 +1,14 @@
 # Rest Service Documentation using Swagger
 
+Java 8
+Swagger
+Spring Boot
+Spring Security
+JWT
+JUnit
+AWS - working in it...
+
+
 ## Send a POST:
 http://localhost:8080/api/v1/Customer/auth
 

@@ -1,20 +1,23 @@
 # Rest Service Documentation using Swagger
 
-Send a POST:
+## Send a POST:
 http://localhost:8080/api/v1/Customer/auth
 
-With body:
+## With body:
+```
 {"email":"admin@skipthedishes.com","password":"skip@123"}
+```
+## The response
 
-The response
-
-Status:
+### Status:
 200
 
-Header:
+### Header:
+```
 Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBza2lwdGhlZGlzaGVzLmNvbSIsImV4cCI6MTUyMjAzNDczNn0.qLcdfCqmjsArJaV9rikSByZ5ENq8-d-drcsE_PAMYQkD0svEbZ3mB79AAASNZYsbUGFYCWxSs8GvcYsedTVA3A
-
-Body:
+```
+### Body:
+```
 {
     "password": null,
     "username": "admin@skipthedishes.com",
@@ -31,20 +34,20 @@ Body:
     "credentialsNonExpired": true,
     "enabled": true
 }
-
-#You will use the gererated Token above in some restricts endpoints, like:
+```
+# You will use the gererated Token above in some restricts endpoints, like:
 
 List all customers
 
-Send a GET:
+## Send a GET:
 http://localhost:8080/api/v1/Customer/
 
 Use the token generated.
 
 
 Voilá
-The response
-
+## The response
+```
 [
     {
         "id": 1,
@@ -63,3 +66,4 @@ The response
         "password": "skip@123"
     }
 ]
+```

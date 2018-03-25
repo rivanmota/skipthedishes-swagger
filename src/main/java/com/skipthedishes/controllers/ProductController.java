@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/v1/Product")
-@Api(value = "Skip", description = "Order API")
+@Api(value = "Skip")
 public class ProductController {
 
 	private ProductService productService;
@@ -30,7 +30,7 @@ public class ProductController {
 		this.productService = productServiceImpl;
 	}
 
-	@ApiOperation(value = "List of products", response = Iterable.class)
+	@ApiOperation(value = "List of products", response = Product[].class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 							@ApiResponse(code = 401, message = "not authorized"),
 							@ApiResponse(code = 403, message = "is forbidden"),

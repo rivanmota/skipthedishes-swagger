@@ -2,6 +2,7 @@ package com.skipthedishes.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,10 +29,9 @@ public class SwaggerConfig {
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo(
                 "vanhack-saopaulo-fair-api",
-                "Rivan Mota",
-                "REACT and MOBILE Developers: use this API to access the end-points during your Challenge.\n" + 
-                "JAVA Developers: this API must be implemented at least as is.",
-                "Vanhack - Website",
+                "Java 8 - Spring Boot - Spring Security - JWT - JUnit - Mysql - AWS - Swagger",
+                "1.0",
+                "-",
                 new Contact("Rivan Mota", "http://rivanmota.com", "rivanluiz@gmail.com"),
                "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0");

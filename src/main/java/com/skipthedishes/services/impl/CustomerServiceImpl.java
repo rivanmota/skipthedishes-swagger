@@ -2,6 +2,8 @@ package com.skipthedishes.services.impl;
 
 import static java.util.Collections.emptyList;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +14,10 @@ import org.springframework.stereotype.Service;
 import com.skipthedishes.model.Customer;
 import com.skipthedishes.model.UserAuth;
 import com.skipthedishes.repositories.CustomerRepository;
+import com.skipthedishes.services.CustomerService;
 
 @Service
-public class CustomerServiceImpl implements UserDetailsService {
+public class CustomerServiceImpl implements UserDetailsService, CustomerService {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -32,6 +35,21 @@ public class CustomerServiceImpl implements UserDetailsService {
 		user.setEmail(customer.getEmail());
 		
 		return user;
+	}
+
+	@Override
+	public Iterable<Customer> getAll() {
+		return customerRepository.findAll();
+	}
+
+	@Override
+	public Customer getById(Long id) {
+		return customerRepository.findOne(id);
+	}
+
+	@Override
+	public List<Customer> getByNameIgnoreCaseContaining(String searchText) {
+		return customerRepository.findByNameIgnoreCaseContaining(searchText);
 	}
 	
 }

@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/v1/Cousine")
-@Api(value = "Skip", description = "Order API")
+@Api(value = "Cousine")
 public class CousineController {
 
 	private CousineService cousineService;
